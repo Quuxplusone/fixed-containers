@@ -29,8 +29,8 @@ TEST(IndexRangeIterator, Forward_StartingConditions)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::FORWARD()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::FORWARD>;
     {
         constexpr ItType it{{}, {}, 0, 3};
         static_assert(0 == std::integral_constant<std::size_t, *it>{});
@@ -73,8 +73,8 @@ TEST(IndexRangePredicateIterator, Forward_StartingConditions)
     using ItType = IndexRangePredicateIterator<EvenValuesOnly,
                                                IdentityIndexProvider,
                                                IdentityIndexProvider,
-                                               IteratorConstness::CONSTANT_ITERATOR(),
-                                               IteratorDirection::FORWARD()>;
+                                               IteratorConstness::CONSTANT_ITERATOR,
+                                               IteratorDirection::FORWARD>;
     {
         constexpr ItType it{{}, {}, 0, 3};
         static_assert(0 == std::integral_constant<std::size_t, *it>{});
@@ -118,8 +118,8 @@ TEST(IndexRangeIterator, Forward_EmptyIterator)
     using ItType = IndexRangePredicateIterator<AlwaysFalsePredicate,
                                                IdentityIndexProvider,
                                                IdentityIndexProvider,
-                                               IteratorConstness::CONSTANT_ITERATOR(),
-                                               IteratorDirection::FORWARD()>;
+                                               IteratorConstness::CONSTANT_ITERATOR,
+                                               IteratorDirection::FORWARD>;
     {
         constexpr ItType it{{}, {}, 0, 3};
         static_assert(0 == std::integral_constant<std::size_t, *it>{});
@@ -135,8 +135,8 @@ TEST(IndexRangeIterator, Reverse_EmptyIterator)
     using ItType = IndexRangePredicateIterator<AlwaysFalsePredicate,
                                                IdentityIndexProvider,
                                                IdentityIndexProvider,
-                                               IteratorConstness::CONSTANT_ITERATOR(),
-                                               IteratorDirection::REVERSE()>;
+                                               IteratorConstness::CONSTANT_ITERATOR,
+                                               IteratorDirection::REVERSE>;
     {
         constexpr ItType it{{}, {}, 3, 3};
         static_assert(2 == std::integral_constant<std::size_t, *it>{});
@@ -151,8 +151,8 @@ TEST(IndexRangeIterator, Reverse_StartingConditions)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::REVERSE()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::REVERSE>;
     {
         constexpr ItType it{{}, {}, 3, 3};
         static_assert(2 == std::integral_constant<std::size_t, *it>{});
@@ -177,8 +177,8 @@ TEST(IndexRangePredicateIterator, Reverse_StartingConditions)
     using ItType = IndexRangePredicateIterator<EvenValuesOnly,
                                                IdentityIndexProvider,
                                                IdentityIndexProvider,
-                                               IteratorConstness::CONSTANT_ITERATOR(),
-                                               IteratorDirection::REVERSE()>;
+                                               IteratorConstness::CONSTANT_ITERATOR,
+                                               IteratorDirection::REVERSE>;
     {
         constexpr ItType it{{}, {}, 3, 3};
         static_assert(2 == std::integral_constant<std::size_t, *it>{});
@@ -202,8 +202,8 @@ TEST(IndexRangeIterator, ForwardIncrement)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::FORWARD()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::FORWARD>;
     {
         constexpr std::size_t DISTANCE = std::distance(ItType{{}, {}, 0, 3}, ItType{{}, {}, 3, 3});
         static_assert(3 == std::integral_constant<std::size_t, DISTANCE>{});
@@ -247,8 +247,8 @@ TEST(IndexRangeIterator, ForwardDecrement)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::FORWARD()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::FORWARD>;
     {
         constexpr std::size_t DISTANCE = std::distance(ItType{{}, {}, 0, 3}, ItType{{}, {}, 3, 3});
         static_assert(3 == std::integral_constant<std::size_t, DISTANCE>{});
@@ -296,8 +296,8 @@ TEST(IndexRangeIterator, ReverseIncrement)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::REVERSE()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::REVERSE>;
     {
         constexpr std::size_t DISTANCE = std::distance(ItType{{}, {}, 3, 3}, ItType{{}, {}, 0, 3});
 
@@ -342,8 +342,8 @@ TEST(IndexRangeIterator, ReverseDecrement)
 {
     using ItType = IndexRangeIterator<IdentityIndexProvider,
                                       IdentityIndexProvider,
-                                      IteratorConstness::CONSTANT_ITERATOR(),
-                                      IteratorDirection::REVERSE()>;
+                                      IteratorConstness::CONSTANT_ITERATOR,
+                                      IteratorDirection::REVERSE>;
     {
         constexpr std::size_t DISTANCE = std::distance(ItType{{}, {}, 3, 3}, ItType{{}, {}, 0, 3});
         static_assert(3 == std::integral_constant<std::size_t, DISTANCE>{});
