@@ -7,11 +7,11 @@
 #include "fixed_containers/consteval_compare.hpp"
 
 #include <gtest/gtest.h>
-#include <range/v3/iterator/concepts.hpp>
-#include <range/v3/view/filter.hpp>
 
 #include <algorithm>
 #include <cmath>
+#include <iterator>
+#include <ranges>
 
 namespace fixed_containers
 {
@@ -24,8 +24,8 @@ static_assert(StandardLayout<ES_1>);
 static_assert(TriviallyCopyAssignable<ES_1>);
 static_assert(TriviallyMoveAssignable<ES_1>);
 
-static_assert(ranges::bidirectional_iterator<ES_1::iterator>);
-static_assert(ranges::bidirectional_iterator<ES_1::const_iterator>);
+static_assert(std::bidirectional_iterator<ES_1::iterator>);
+static_assert(std::bidirectional_iterator<ES_1::const_iterator>);
 
 }  // namespace
 
@@ -525,9 +525,9 @@ TEST(FixedSet, Equality)
 TEST(FixedSet, Ranges)
 {
     FixedSet<int, 10> s1{1, 4};
-    auto f = s1 | ranges::views::filter([](const auto& v) -> bool { return v == 4; });
+    auto f = s1 | std::views::filter([](const auto& v) { return v == 4; });
 
-    EXPECT_EQ(1, ranges::distance(f));
+    EXPECT_EQ(1, std::ranges::distance(f));
     EXPECT_EQ(4, *f.begin());
 }
 

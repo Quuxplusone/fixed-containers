@@ -12,10 +12,3 @@ http_archive(
             "//:patches/gtest_use_maybe_unused_instead_of_attribute_unused.patch",
     ],
 )
-
-http_archive(
-    name = "com_github_ericniebler_range-v3",
-    urls = ["https://github.com/ericniebler/range-v3/archive/0.11.0.tar.gz"],
-    strip_prefix = "range-v3-0.11.0",
-    sha256 = "376376615dbba43d3bef75aa590931431ecb49eb36d07bb726a19f680c75e20c",
-)

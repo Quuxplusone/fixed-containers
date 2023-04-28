@@ -110,11 +110,9 @@ if(BUILD_TESTS)
     endif()
     enable_testing()
 
-    find_package(range-v3 CONFIG REQUIRED)
     find_package(GTest CONFIG REQUIRED)
 
     macro(add_test_dependencies TEST_TARGET)
-        target_link_libraries(${TEST_TARGET} range-v3)
         target_link_libraries(${TEST_TARGET} GTest::gtest GTest::gtest_main)
         target_link_libraries(${TEST_TARGET} fixed_containers project_options project_warnings)
         add_test(NAME ${TEST_TARGET} COMMAND ${TEST_TARGET})

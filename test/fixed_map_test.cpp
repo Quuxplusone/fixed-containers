@@ -8,12 +8,11 @@
 #include "fixed_containers/consteval_compare.hpp"
 
 #include <gtest/gtest.h>
-#include <range/v3/iterator/concepts.hpp>
-#include <range/v3/view/filter.hpp>
 
 #include <algorithm>
 #include <cmath>
 #include <memory>
+#include <ranges>
 
 namespace fixed_containers
 {
@@ -26,8 +25,8 @@ static_assert(StandardLayout<ES_1>);
 static_assert(TriviallyCopyAssignable<ES_1>);
 static_assert(TriviallyMoveAssignable<ES_1>);
 
-static_assert(ranges::bidirectional_iterator<ES_1::iterator>);
-static_assert(ranges::bidirectional_iterator<ES_1::const_iterator>);
+static_assert(std::bidirectional_iterator<ES_1::iterator>);
+static_assert(std::bidirectional_iterator<ES_1::const_iterator>);
 
 static_assert(std::is_trivially_copyable_v<ES_1::const_iterator>);
 static_assert(std::is_trivially_copyable_v<ES_1::iterator>);
@@ -35,8 +34,8 @@ static_assert(std::is_trivially_copyable_v<ES_1::reverse_iterator>);
 static_assert(std::is_trivially_copyable_v<ES_1::const_reverse_iterator>);
 
 using STD_MAP_INT_INT = std::map<int, int>;
-static_assert(ranges::bidirectional_iterator<STD_MAP_INT_INT::iterator>);
-static_assert(ranges::bidirectional_iterator<STD_MAP_INT_INT::const_iterator>);
+static_assert(std::bidirectional_iterator<STD_MAP_INT_INT::iterator>);
+static_assert(std::bidirectional_iterator<STD_MAP_INT_INT::const_iterator>);
 
 }  // namespace
 
@@ -1165,9 +1164,9 @@ TEST(FixedMap, Equality)
 TEST(FixedMap, Ranges)
 {
     FixedMap<int, int, 10> s1{{1, 10}, {4, 40}};
-    auto f = s1 | ranges::views::filter([](const auto& v) -> bool { return v.second() == 10; });
+    auto f = s1 | std::views::filter([](const auto& v) { return v.second() == 10; });
 
-    EXPECT_EQ(1, ranges::distance(f));
+    EXPECT_EQ(1, std::ranges::distance(f));
     int first_entry = f.begin()->second();
     EXPECT_EQ(10, first_entry);
 }
