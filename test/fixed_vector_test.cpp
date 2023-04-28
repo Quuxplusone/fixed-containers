@@ -7,12 +7,9 @@
 #include "fixed_containers/concepts.hpp"
 
 #include <gtest/gtest.h>
-#include <range/v3/iterator/concepts.hpp>
-#include <range/v3/range/conversion.hpp>
-#include <range/v3/view/filter.hpp>
-#include <range/v3/view/transform.hpp>
 
 #include <array>
+#include <ranges>
 #include <span>
 #include <vector>
 
@@ -29,8 +26,8 @@ static_assert(NotTrivial<VecType>);
 static_assert(StandardLayout<VecType>);
 static_assert(IsStructuralType<VecType>);
 
-static_assert(ranges::random_access_iterator<VecType::iterator>);
-static_assert(ranges::random_access_iterator<VecType::const_iterator>);
+static_assert(std::random_access_iterator<VecType::iterator>);
+static_assert(std::random_access_iterator<VecType::const_iterator>);
 
 static_assert(std::ranges::contiguous_range<VecType>);
 static_assert(std::ranges::contiguous_range<std::array<int, 5>>);
@@ -1687,10 +1684,14 @@ TEST(FixedVector, Data)
 TEST(FixedVector, Ranges)
 {
     FixedVector<int, 5> s1{10, 40};
-    auto f = s1 | ranges::views::filter([](const auto& v) -> bool { return v == 10; }) |
-             ranges::views::transform([](const auto& v) { return 2 * v; }) |
-             ranges::views::remove_if([](const auto& v) -> bool { return v == 10; }) |
-             ranges::to<FixedVector<int, 10>>;
+    auto rf = s1 | std::views::filter([](const auto& v) { return v == 10; }) |
+             std::views::transform([](const auto& v) { return 2 * v; }) |
+             std::views::filter([](const auto& v) { return v != 10; });
+#if defined(__cpp_lib_ranges_to_container) && __cpp_lib_ranges_to_container >= 202202L
+    auto f = rf | std::ranges::to<FixedVector<int, 10>>();
+#else
+    FixedVector<int, 10> f(rf.begin(), rf.end());
+#endif
 
     EXPECT_EQ(1, f.size());
     int first_entry = *f.begin();

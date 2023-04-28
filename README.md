@@ -164,7 +164,7 @@ More examples can be found [here](test/enums_test_common.hpp).
 - Add the `include/` folder to your includes
 - Get the dependencies. For example, with [vcpkg](https://github.com/Microsoft/vcpkg):
 ```
-vcpkg install magic-enum range-v3
+vcpkg install magic-enum
 ```
 
 ### bazel
@@ -219,8 +219,7 @@ struct ArrowProxy
 constexpr ArrowProxy operator->() const noexcept { /* impl */; }
 ```
 The downside is that the return type of `operator->` is not an `l-value` reference.
-
-`range-v3` fails to compile and refuses to chain forward the arrow operator. Furthermore, the built-in range-based for-loops are subtly different:
+This makes the syntax for built-in range-based for-loops subtly different:
 
 ```
 enum_map_test.cpp:416:26: error: loop variable 'key_and_value' is always a copy because the range of type 'EnumMap<TestEnum1, int>' does not return a reference [-Werror,-Wrange-loop-bind-reference]
@@ -231,7 +230,7 @@ enum_map_test.cpp:416:14: note: use non-reference type 'std::pair<const TestEnum
              ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-Similar error occurs when using structured binding.
+A similar error occurs when using structured binding.
 
 #### Pair of references
 

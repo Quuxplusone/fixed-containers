@@ -9,11 +9,10 @@
 #include "fixed_containers/fixed_vector.hpp"
 
 #include <gtest/gtest.h>
-#include <range/v3/iterator/concepts.hpp>
-#include <range/v3/view/filter.hpp>
 
 #include <iterator>
 #include <memory>
+#include <ranges>
 #include <type_traits>
 #include <utility>
 
@@ -50,8 +49,8 @@ static_assert(std::is_trivially_copy_assignable_v<ES_3>);
 static_assert(std::is_trivially_move_assignable_v<ES_3>);
 static_assert(IsStructuralType<ES_3>);
 
-static_assert(ranges::bidirectional_iterator<ES_1::iterator>);
-static_assert(ranges::bidirectional_iterator<ES_1::const_iterator>);
+static_assert(std::bidirectional_iterator<ES_1::iterator>);
+static_assert(std::bidirectional_iterator<ES_1::const_iterator>);
 
 static_assert(std::is_trivially_copyable_v<ES_2::const_iterator>);
 static_assert(std::is_trivially_copyable_v<ES_2::iterator>);
@@ -59,8 +58,8 @@ static_assert(std::is_trivially_copyable_v<ES_2::reverse_iterator>);
 static_assert(std::is_trivially_copyable_v<ES_2::const_reverse_iterator>);
 
 using STD_MAP_INT_INT = std::map<int, int>;
-static_assert(ranges::bidirectional_iterator<STD_MAP_INT_INT::iterator>);
-static_assert(ranges::bidirectional_iterator<STD_MAP_INT_INT::const_iterator>);
+static_assert(std::bidirectional_iterator<STD_MAP_INT_INT::iterator>);
+static_assert(std::bidirectional_iterator<STD_MAP_INT_INT::const_iterator>);
 }  // namespace
 
 TEST(EnumMap, DefaultConstructor)
@@ -1183,9 +1182,9 @@ TEST(EnumMap, Equality)
 TEST(EnumMap, Ranges)
 {
     EnumMap<TestRichEnum1, int> s1{{TestRichEnum1::C_ONE(), 10}, {TestRichEnum1::C_FOUR(), 40}};
-    auto f = s1 | ranges::views::filter([](const auto& v) -> bool { return v.second() == 10; });
+    auto f = s1 | std::views::filter([](const auto& v) { return v.second() == 10; });
 
-    EXPECT_EQ(1, ranges::distance(f));
+    EXPECT_EQ(1, std::ranges::distance(f));
     int first_entry = f.begin()->second();
     EXPECT_EQ(10, first_entry);
 }
