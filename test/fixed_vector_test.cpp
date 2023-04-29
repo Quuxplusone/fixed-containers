@@ -35,14 +35,14 @@ static_assert(std::is_same_v<std::iter_value_t<VecType::iterator>, int>);
 static_assert(std::is_same_v<std::iter_reference_t<VecType::iterator>, int&>);
 static_assert(std::is_same_v<std::iter_difference_t<VecType::iterator>, std::ptrdiff_t>);
 static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::pointer, int*>);
-static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::iterator_category, std::random_access_iterator_tag>);
+static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::iterator_category, std::contiguous_iterator_tag>);
 static_assert(std::is_same_v<typename std::pointer_traits<VecType::iterator>::element_type, int>);
 
 static_assert(std::is_same_v<std::iter_value_t<VecType::const_iterator>, int>);
 static_assert(std::is_same_v<std::iter_reference_t<VecType::const_iterator>, const int&>);
 static_assert(std::is_same_v<std::iter_difference_t<VecType::const_iterator>, std::ptrdiff_t>);
 static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::pointer, const int*>);
-static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::iterator_category, std::random_access_iterator_tag>);
+static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::iterator_category, std::contiguous_iterator_tag>);
 static_assert(std::is_same_v<typename std::pointer_traits<VecType::const_iterator>::element_type, const int>);
 
 }  // namespace trivially_copyable_vector
@@ -86,14 +86,14 @@ static_assert(std::is_same_v<std::iter_value_t<VecType::iterator>, T>);
 static_assert(std::is_same_v<std::iter_reference_t<VecType::iterator>, T&>);
 static_assert(std::is_same_v<std::iter_difference_t<VecType::iterator>, std::ptrdiff_t>);
 static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::pointer, T*>);
-static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::iterator_category, std::random_access_iterator_tag>);
+static_assert(std::is_same_v<typename std::iterator_traits<VecType::iterator>::iterator_category, std::contiguous_iterator_tag>);
 static_assert(std::is_same_v<typename std::pointer_traits<VecType::iterator>::element_type, T>);
 
 static_assert(std::is_same_v<std::iter_value_t<VecType::const_iterator>, T>);
 static_assert(std::is_same_v<std::iter_reference_t<VecType::const_iterator>, const T&>);
 static_assert(std::is_same_v<std::iter_difference_t<VecType::const_iterator>, std::ptrdiff_t>);
 static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::pointer, const T*>);
-static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::iterator_category, std::random_access_iterator_tag>);
+static_assert(std::is_same_v<typename std::iterator_traits<VecType::const_iterator>::iterator_category, std::contiguous_iterator_tag>);
 static_assert(std::is_same_v<typename std::pointer_traits<VecType::const_iterator>::element_type, const T>);
 }
 
